@@ -1,12 +1,14 @@
+{% extends 'green/base.html' %}
 
-<center>
-<h1>Hello {{year}}!</h1>
+{% block content %}
+  <center>
+  <h1>Hello {{ year }}!</h1>
+  <h3>
+      Time: {{ time }}<br/>
+      Date: {{current_day}}/{{current_month}}/{{ current_year }}
+  </h3>
+    <br/><br/>
+    {{cal|safe}}
 
-mies: {{month}}<br/>
-rok: {{year}} <br/>
-nr mies: {{month_number}}<br/>
-{{cal|safe}}
-  <br/><br/><br/><br/>
-    {{current_year}}<br/><br/>
-    {{time}}
-</center>
+  </center>
+{% endblock %}

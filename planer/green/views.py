@@ -2,6 +2,54 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from django.http import HttpResponseRedirect
+from .models import Plant, Task, GreenUser, Plant_species
+from .forms import PlantForm, TaskForm
+
+def plant(request, plant_id):
+    plant = Plant.objects.get(pk=plant_id)
+
+    return render(request, 'green/plant.html',
+                  {
+                      'plant': plant,
+                  })
+
+
+def add_task(request):
+    submitted = False
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/add_task?submitted=True')
+    else:
+        form = TaskForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    return render(request, 'green/add_task.html',
+                  {
+                      'form':form,
+                      'submitted':submitted,
+                  })
+
+def add_plant(request):
+    submitted = False
+    if request.method == "POST":
+        form = PlantForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/add_plant?submitted=True')
+    else:
+        form = PlantForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    return render(request, 'green/add_plant.html',
+                  {
+                      'form':form,
+                      'submitted':submitted,
+                  })
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
     month = month.capitalize()
@@ -15,7 +63,10 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     #get current year
     now = datetime.now()
     current_year = now.year
-    # get current year
+    current_month = now.month
+    current_day = now.day
+
+    # get current time
     time= now.strftime('%H:%M')
 
     return render(request,'green/home.html', {
@@ -25,4 +76,18 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
         "cal":cal,
         "current_year":current_year,
         "time":time,
+        "current_month":current_month,
+        "current_day":current_day,
     })
+
+def plant_list(request):
+    plant_list = Plant.objects.all()
+    task_list = Task.objects.all()
+
+    return render(request, 'green/plant_list.html',
+                  {
+                      'plant_list':plant_list,
+                      'task_list':task_list,
+                   })
+
+
