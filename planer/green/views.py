@@ -18,7 +18,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     # get current year
     time= now.strftime('%H:%M')
 
-    return render(request,'home.html', {
+    return render(request,'green/home.html', {
         "year":year,
         "month":month,
         "month_number":month_number,
