@@ -1,10 +1,33 @@
 {% extends 'green/base.html' %}
 
 {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-9"><h1>{{ plant }}</h1><br/><br/></div>
+    <div class="col-4"><img src="{{plant.plant_photo}}" alt="{{plant}}" border="0" /></div>
+    <div class="col-6">
+        Zadania:<br>
+        {% for taskL in task_list  %}
+        {% if taskL.task_plant == plant  %}
 
-<h1>This is: </h1><br/>
-{{ plant }}<br/>
-<br/>
-<img src="{{plant.plant_photo}}" alt="{{plant}}" border="0" />
+         <ul>
+           {{ taskL }}
+         </ul>
+        {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+</div>
 
+
+
+<br/><br/><br/><br/><br/><br/>
+<br/><br/>
+<script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
+<lord-icon
+    src="https://cdn.lordicon.com/nfclzwfx.json"
+    trigger="loop"
+    style="width:250px;height:250px">
+</lord-icon>
+{{chuck.value}}
 {% endblock %}

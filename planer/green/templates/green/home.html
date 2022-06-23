@@ -1,14 +1,46 @@
 {% extends 'green/base.html' %}
 
 {% block content %}
-  <center>
-  <h1>Hello {{ year }}!</h1>
-  <h3>
-      Time: {{ time }}<br/>
-      Date: {{current_day}}/{{current_month}}/{{ current_year }}
-  </h3>
-    <br/><br/>
-    {{cal|safe}}
 
-  </center>
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+        <center>
+            <h3>
+                Time: {{ time }}<br/>
+                Date: {{current_day}}/{{current_month}}/{{ current_year }}
+            </h3>
+        </center>
+        <br/><br/><br/>
+    </div>
+    <div class="col-4">
+        <h4>
+            Kalendarz:<br>
+        </h4>
+        {{cal|safe}}
+
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+          <button type="button" href="{% url 'home' '2020' 'March' %}" class="btn btn-outline-primary">Left</button>
+          <button type="button" class="btn btn-outline-primary">Middle</button>
+          <button type="button" class="btn btn-outline-primary">Right</button>
+        </div>
+    </div>
+    <div class="col-6">Zadania do wykonania na ten miesiąc:<br>
+        {% for taskL in task_list  %}
+            <ul>
+                {% if taskL.task_date == now %}
+                <li>{{ taskL }} - {{ taskL.task_date }}</li>
+                {% endif %}
+            </ul>
+        {% endfor %}
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    </div>
+  </div>
+</div>
+
+{
+  "file": "https://coffee.alexflipnote.dev/Lng87lj9Bj8_coffee.jpg"
+}
+
 {% endblock %}

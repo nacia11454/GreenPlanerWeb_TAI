@@ -5,14 +5,34 @@ from datetime import datetime
 from django.http import HttpResponseRedirect
 from .models import Plant, Task, GreenUser, Plant_species
 from .forms import PlantForm, TaskForm
+import requests
 
 def plant(request, plant_id):
     plant = Plant.objects.get(pk=plant_id)
+    task_list = Task.objects.all()
+    chuck = requests.get('https://api.chucknorris.io/jokes/random')
+    chuck = chuck.json()
+    cat = requests.get('https://excuser.herokuapp.com/v1/excuse')
+    cat = cat.json()
+
 
     return render(request, 'green/plant.html',
                   {
                       'plant': plant,
+                      'task_list': task_list,
+                      'chuck':chuck,
+                      'cat':cat,
                   })
+
+def plant_list(request):
+    plant_list = Plant.objects.all()
+
+
+    return render(request, 'green/plant_list.html',
+                  {
+                      'plant_list':plant_list,
+                   })
+
 
 
 def add_task(request):
@@ -69,6 +89,10 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     # get current time
     time= now.strftime('%H:%M')
 
+    #tasks
+    task_list = Task.objects.all()
+    (Task.task_date == current_month)
+
     return render(request,'green/home.html', {
         "year":year,
         "month":month,
@@ -78,16 +102,9 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
         "time":time,
         "current_month":current_month,
         "current_day":current_day,
+        "task_list":task_list,
+        "now":now,
     })
 
-def plant_list(request):
-    plant_list = Plant.objects.all()
-    task_list = Task.objects.all()
-
-    return render(request, 'green/plant_list.html',
-                  {
-                      'plant_list':plant_list,
-                      'task_list':task_list,
-                   })
 
 

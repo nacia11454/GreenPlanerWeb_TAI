@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'green',
+    'greenCalendar',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
