@@ -11,7 +11,7 @@
         {% if taskL.task_plant == plant  %}
 
          <ul>
-           {{ taskL }}
+           <a href="{% url 'task' taskL.id %}">{{ taskL }} - {{ taskL.task_date }}</a>
          </ul>
         {% endif %}
         {% endfor %}

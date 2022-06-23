@@ -1,4 +1,7 @@
+import datetime
+
 from django.db import models
+from django.utils import timezone
 
 class Plant_species(models.Model):
     name_species = models.CharField('Species Name', max_length = 100)
@@ -24,7 +27,7 @@ class GreenUser(models.Model):
 
 class Task(models.Model):
     task_title = models.CharField('Task Title', max_length = 100)
-    task_date = models.DateTimeField('Task Date')
+    task_date = models.DateTimeField('Task Date',default = timezone.now() - datetime.timedelta(days=0))
     task_note = models.TextField(blank=True)
     task_status = models.IntegerField(default=0)
     task_plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
@@ -32,4 +35,5 @@ class Task(models.Model):
 
     def __str__(self):
         return self.task_title
+
 

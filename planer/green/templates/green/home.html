@@ -19,28 +19,30 @@
         </h4>
         {{cal|safe}}
 
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button type="button" href="{% url 'home' '2020' 'March' %}" class="btn btn-outline-primary">Left</button>
-          <button type="button" class="btn btn-outline-primary">Middle</button>
-          <button type="button" class="btn btn-outline-primary">Right</button>
-        </div>
     </div>
-    <div class="col-6">Zadania do wykonania na ten miesiąc:<br>
+    <div class="col-6">
+        Zadania do wykonania na dziś:<br>
         {% for taskL in task_list  %}
             <ul>
                 {% if taskL.task_date == now %}
-                <li>{{ taskL }} - {{ taskL.task_date }}</li>
+                <li><a href="{% url 'task' taskL.id %}">{{ taskL }} - {{ taskL.task_date }}</a></li>
                 {% endif %}
             </ul>
         {% endfor %}
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        Wszytskie Zadania:<br>
+        {% for taskL in task_list  %}
+            <ul>
+                <a href="{% url 'task' taskL.id %}">{{ taskL }} - {{ taskL.task_date }}</a>
+            </ul>
+        {% endfor %}
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </div>
   </div>
 </div>
 
-{
-  "file": "https://coffee.alexflipnote.dev/Lng87lj9Bj8_coffee.jpg"
-}
 
 {% endblock %}

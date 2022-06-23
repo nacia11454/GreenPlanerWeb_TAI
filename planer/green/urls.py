@@ -8,5 +8,6 @@ urlpatterns = [
     path('add_plant/',views.add_plant, name = "add_plant"),
     path('add_task/',views.add_task, name = "add_task"),
     path('plant/<plant_id>/', views.plant, name="plant"),
+    path('task/<task_id>', views.task, name="task"),
 
 ]

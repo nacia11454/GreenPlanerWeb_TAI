@@ -14,6 +14,6 @@ class PlantForm(ModelForm):
 class TaskForm(ModelForm):
     class Meta:
         model = Task
-        fields = ('task_title', 'task_date', 'task_note', 'task_plant', 'task_user')
+        fields = ('task_title', 'task_note', 'task_plant', 'task_user')
 
 

@@ -7,6 +7,15 @@ from .models import Plant, Task, GreenUser, Plant_species
 from .forms import PlantForm, TaskForm
 import requests
 
+
+def task(request, task_id):
+    task = Task.objects.get(pk=task_id)
+    return render(request, 'green/task.html',
+                  {
+                      'task': task,
+                  })
+
+
 def plant(request, plant_id):
     plant = Plant.objects.get(pk=plant_id)
     task_list = Task.objects.all()
@@ -93,6 +102,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     task_list = Task.objects.all()
     (Task.task_date == current_month)
 
+
     return render(request,'green/home.html', {
         "year":year,
         "month":month,
@@ -104,6 +114,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
         "current_day":current_day,
         "task_list":task_list,
         "now":now,
+
     })
 
 
